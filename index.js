@@ -1,21 +1,16 @@
-function playSound(name) {
-    let audio = new Audio(`./sounds/${name}.mp3`);
-    audio.play();
-};
-
 for (let i = 0; i < $(".drum").length + 1; i++) {
     $(`.set .drum:nth-child(${i}`).on("click", function () {
-        $(this).css("color", "white");
-
+        
         console.log($(this).text());
         makeSound($(this).text());
-
+        buttonAnimation($(this).text());
     });
 }
 
 $(document).keydown(function (event) {
     console.log(event.key);
     makeSound(event.key);
+    buttonAnimation(event.key);
 });
 
 function makeSound(key) {
@@ -45,3 +40,15 @@ function makeSound(key) {
             break;
     }
 }
+
+function buttonAnimation(currentKey) {
+    $(`.${currentKey}`).addClass("pressed");
+    setTimeout(() => {
+        $(`.${currentKey}`).removeClass("pressed");
+    }, 100);
+}
+
+function playSound(name) {
+    let audio = new Audio(`./sounds/${name}.mp3`);
+    audio.play();
+};
